@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+var palette = require('../')
+  , Canvas = require('canvas')
+  , Image = Canvas.Image
+  , canvas = new Canvas
+  , ctx = canvas.getContext('2d');
+
+var args = process.argv.slice(2);
+
+var img = new Image;
+
+img.onload = function(){
+  canvas.width = img.width;
+  canvas.height = img.height;
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0);
+};
+
+img.src = args[0];
+
+var colors = palette(canvas, args[1] || 5);
+
+console.log(colors);
